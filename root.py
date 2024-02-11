@@ -8,7 +8,6 @@ app=FastAPI()
 settings=Settings()
 
 @app.on_event('startup')
-
 async def init_db():
     await settings.init_db()
 
@@ -19,8 +18,8 @@ def root(request: Request) -> dict:
     }
 
 app.include_router(routelist.todo_router,prefix='/todo')
-
+ 
 
 
 if __name__=="__main__":
-    uvicorn.run('root:app',host="127.0.0.1",port=1340,reload=True)
+    uvicorn.run('root:app',host="127.0.0.1",port=1320,reload=True)

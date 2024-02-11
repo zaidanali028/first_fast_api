@@ -23,7 +23,8 @@ class Settings(BaseModel):
         await init_beanie(
         database=client.db_name, document_models=[Todo]  # Configure Beanie
         )
-        print(DATABASE_URL)
+         
+        print(f'connected to {DATABASE_URL}....')
     
 
     class Config:
@@ -52,11 +53,13 @@ class Database:
     async def update(self, id: PydanticObjectId, body: BaseModel) -> Any:
         """Updates an existing document with the provided data."""
         doc_id = id
-        des_body = {key: value for key, value in body.dict().items() if value is not None}  # Remove None values
-        update_query = {"set": des_body}  # Construct the update query
+        des_body=body.dict()
+        des_body = {key: value for key, value in des_body.items() if value is not None}  # Remove None values
+        update_query = {"$set": des_body}  # Construct the update query
         update_doc = await self.get(doc_id)  # Retrieve the document to update
         if update_doc:
-            update_doc.update(update_query)  # Apply the update
+            print(update_doc)
+            await update_doc.update(update_query)  # Apply the update
             return update_doc  # Return the updated document
         return False  # Return False if document not found
 

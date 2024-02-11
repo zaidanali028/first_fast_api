@@ -19,11 +19,11 @@ class Todo(Document):
     # Configuration for providing an example of the model's JSON format
     class Config:
         schema_extra = {
-            "example": {
+            "examples": [{
                 "user": "Ali Usman Zaidan",
                 "title": "My first FAST blog",
                 "description": "A Description from FASTAPI"
-            }
+            }]
         }
 
 # Define a model for validating update requests (not directly for database storage)
@@ -36,3 +36,12 @@ class TodoUpdate(BaseModel):
 
     # Optional field for updating the description of the todo item (string or None type)
     description: str | None 
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "user": "",
+                "title": "",
+                "description": ""
+            }
+    }
