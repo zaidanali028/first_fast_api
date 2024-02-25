@@ -18,7 +18,7 @@ class Todo(Document):
 
     # Configuration for providing an example of the model's JSON format
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "examples": [{
                 "user": "Ali Usman Zaidan",
                 "title": "My first FAST blog",
@@ -38,7 +38,7 @@ class TodoUpdate(BaseModel):
     description: str | None 
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "user": "",
                 "title": "",
