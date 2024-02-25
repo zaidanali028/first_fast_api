@@ -4,15 +4,15 @@ from beanie import init_beanie, PydanticObjectId
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
 from pydantic_settings import BaseSettings # NEW
-from models.todo import Todo  # Importing the Todo model from another file
+from models.todo import Todo ,TodoUpdate # Importing the Todo model from another file
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
 
 
-# Configuration for database settings
-class Settings(BaseModel):
+# Configuration for database 53
+class Settings():
     DATABASE_URL: Optional[str] = None  # Optional URL for the MongoDB database
 
     async def init_db(self):
@@ -27,8 +27,8 @@ class Settings(BaseModel):
         print(f'connected to {DATABASE_URL}....')
     
 
-    class Config:
-        env_file = ".env"  # Load settings from a .env file
+    # class Config:
+    #     env_file = ".env"  # Load settings from a .env file
 
 # Class for managing database interactions
 class Database:
@@ -50,7 +50,7 @@ class Database:
         docs = await self.model.find_all().to_list()  # Fetch all documents and convert to a list
         return docs if docs else False  # Return the list or False if empty
 
-    async def update(self, id: PydanticObjectId, body: BaseModel) -> Any:
+    async def update(self, id: PydanticObjectId, body: TodoUpdate) -> Any:
         """Updates an existing document with the provided data."""
         doc_id = id
         des_body=body.dict()
@@ -58,7 +58,6 @@ class Database:
         update_query = {"$set": des_body}  # Construct the update query
         update_doc = await self.get(doc_id)  # Retrieve the document to update
         if update_doc:
-            print(update_doc)
             await update_doc.update(update_query)  # Apply the update
             return update_doc  # Return the updated document
         return False  # Return False if document not found

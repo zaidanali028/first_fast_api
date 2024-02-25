@@ -19,7 +19,13 @@ def root(request: Request) -> dict:
 
 app.include_router(routelist.todo_router,prefix='/todo')
  
+# python3 ./app/root.py
 
 
 if __name__=="__main__":
-    uvicorn.run('root:app',host="127.0.0.1",port=1320,reload=True)
+    uvicorn.run('main:app',host="127.0.0.1",port=8000,reload=True)
+
+
+
+
+
