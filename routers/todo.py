@@ -6,6 +6,7 @@ from models.todo import Todo,TodoUpdate
 
 
 todo_router=APIRouter(
+    prefix='todo'
     tags=['Todos']
 )
 
